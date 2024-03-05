@@ -4,8 +4,9 @@ PROPER ARGUMENT SELECTION IS LEFT AS THE RESPONSIBILITY OF THE IMPLEMENTER.
 
 class : ProjectionTool :
     constructor function : __init__ :
-        parameter : cameraIntrinsicMatrix : 3x4 numpy array : The intrinsic matrix of the Camera
-        parameter : listOfTransformationMatrices : a list of 4x4 numpy arrays : The list of matrices determining the transformations that shall be applied to each point
+        parameter : cameraIntrinsicMatrix           : 3x4 numpy array : The intrinsic matrix of the Camera
+        parameter : listOfTransformationMatrices    : a list of 4x4 numpy arrays : The list of matrices determining the transformations that shall be applied to each point
+        parameter : color_function  : function(numpy.float64 -> [numpy.float64,numpy.float64,numpy.float64]) {optional-default: rainbow(lut = 100)}: a function taking the distance of the point and returning its color
 
     class : CameraDirection : Enum {POSITIVE = 0 , NEGATIVE = 1} : an enum denoting the camera direction
 
@@ -16,10 +17,9 @@ class : ProjectionTool :
         parameter : listOfTransformationMatrices : a list of 4x4 numpy arrays : The list of matrices determining the transformations that shall be applied to each point
 
     function : applyLidarToCameraProjections :
-        parameter : inputDirectory  : string
-        parameter : outputDirectory : string
+        parameter : inputDirectory  : string : directory to input the points.
+        parameter : outputDirectory : string : directory to output the projected images.
         parameter : imageshape      : (int, int){optional-default (376, 1241)}
         parameter : remove_plane    : bool{optional-default True}                           : A bool stating whether the projection should remove plane(ground)
         EXPERIMENTAL - parameter : remove_outliers : bool{optional-default True}            : A bool stating whether the projection should remove outliers
-        parameter : color_map       : function()
         parameter : cameraDirection : CameraDirection : An enum value denoting the direction of the camera
