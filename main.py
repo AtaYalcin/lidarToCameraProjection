@@ -12,7 +12,10 @@ class ProjectionTool:
     class CameraDirection(Enum):
         POSITIVE = 0
         NEGATIVE = 1
-
+    class ColorFunctionGenerator():
+         def rainbow(lut):
+             rainbow_r = cm.get_cmap('rainbow_r', lut=lut)
+             return lambda z: [val for val in rainbow_r(int(z.round()))[:3]]
 
     def __computeTotalMatrix(self):
         result = np.identity(4)
@@ -100,4 +103,5 @@ if __name__ == '__main__':
     [180.03,      5.8992,     -720.15,     -93.457],\
     [0.99997,  0.00048595,  -0.0072069,    -0.28464]]\
     ),[np.identity(4)])
-    projectionTool.applyLidarToCameraProjections("./input","./output",)
+    projectionTool.setColorFunction(projectionTool.ColorFunctionGenerator.rainbow(50))
+    projectionTool.applyLidarToCameraProjections("./input","./output")
