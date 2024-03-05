@@ -2,14 +2,24 @@ THE PROVIDED CODE DOES NOT IMPLEMENT ANY TYPECHECKING FOR ANY ARGUMENT.
 THE PROVIDED CODE DOES NOT IMPLEMENT ANY SHAPE CHECKING FOR THE NUMPY ARRAYS.
 PROPER ARGUMENT SELECTION IS LEFT AS THE RESPONSIBILITY OF THE IMPLEMENTER.
 
-constructor function : __init__ :
-    parameter : cameraIntrinsicMatrix : 3x4 numpy array : The intrinsic matrix of the Camera
+class : ProjectionTool :
+    constructor function : __init__ :
+        parameter : cameraIntrinsicMatrix : 3x4 numpy array : The intrinsic matrix of the Camera
         parameter : listOfTransformationMatrices : a list of 4x4 numpy arrays : The list of matrices determining the transformations that shall be applied to each point
 
-enum
+    class : CameraDirection : Enum {POSITIVE = 0 , NEGATIVE = 1} : an enum denoting the camera direction
 
-function : setCameraIntrinsic :
+    function : setCameraIntrinsic :
     parameter : cameraIntrinsicMatrix : 3x4 numpy array : The intrinsic matrix of the Camera
 
-function : setlistOfTransformationMatrices :
-    parameter : listOfTransformationMatrices : a list of 4x4 numpy arrays : The list of matrices determining the transformations that shall be applied to each point
+    function : setlistOfTransformationMatrices :
+        parameter : listOfTransformationMatrices : a list of 4x4 numpy arrays : The list of matrices determining the transformations that shall be applied to each point
+
+    function : applyLidarToCameraProjections :
+        parameter : inputDirectory  : string
+        parameter : outputDirectory : string
+        parameter : imageshape      : (int, int)
+        parameter : remove_plane    : bool
+        parameter : remove_outliers : bool
+        parameter : color_map       : function
+        parameter : cameraDirection : CameraDirection

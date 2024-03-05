@@ -31,10 +31,10 @@ class ProjectionTool:
         self.__rainbow_r = cm.get_cmap('rainbow_r', lut=100)
         self.__get_color = lambda z: [val for val in self.__rainbow_r(int(z.round()))[:3]]
 
-    def applyLidarToCameraProjections(self,inputDirectory,outputDirectory,imageshape=(376, 1241,3),remove_plane = True,remove_outliers=True,color_map = "",cameraDirection = CameraDirection.POSITIVE):
+    def applyLidarToCameraProjections(self,inputDirectory,outputDirectory,imageshape=(376, 1241),remove_plane = True,remove_outliers=True,color_map = "",cameraDirection = CameraDirection.POSITIVE):
         if color_map == "":
             color_map = self.__get_color
-        image = np.zeros(imageshape)
+        image = np.zeros((imageshape[0], imageshape[1], 3))
 
         operand = self.__computeTotalMatrix()
         paths = sorted(glob(os.path.join(inputDirectory, '*.bin')))
