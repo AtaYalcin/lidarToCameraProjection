@@ -12,17 +12,7 @@ class ProjectionTool:
     class CameraDirection(Enum):
         POSITIVE = 0
         NEGATIVE = 1
-    def __checkTypes(self,acquiredValues,expectedSampleValues):
-        if type(acquiredValues)!=type([]) :
-            raise  RuntimeError("acquiredValues parameter should be a list")
-        if (type(expectedSampleValues) != type([])):
-            raise  RuntimeError("expectedSampleValues parameter should be a list")
-        if(len(acquiredValues)!=len(expectedSampleValues)):
-            raise  RuntimeError("expectedSampleValues shape is different form acquiredValues shape")
-        for i in range(len(acquiredValues)):
-            if type(acquiredValues[i]) != type(expectedSampleValues[i]):
-                return False
-        return True
+
 
     def __computeTotalMatrix(self):
         result = np.identity(4)
@@ -31,22 +21,8 @@ class ProjectionTool:
         result = np.matmul(self.__cameraIntrinsicMatrix,result)
         return result
     def setCameraIntrinsic(self,cameraIntrinsicMatrix):
-        sampleIntrinsicMatrix = np.zeros((3,4))
-        if not self.__checkTypes([cameraIntrinsicMatrix],[sampleIntrinsicMatrix]):
-            raise RuntimeError("unexpected type of 'cameraIntrinsicMatrix' parameter")
-        if cameraIntrinsicMatrix.shape != (3,4) :            
-            raise RuntimeError("unexpected shape of 'cameraIntrinsicMatrix' parameter")
         self.__cameraIntrinsicMatrix = cameraIntrinsicMatrix
     def setlistOfTransformationMatrices(self,listOfTransformationMatrices):
-        if type(listOfTransformationMatrices) != type([]):
-            raise RuntimeError("unexpected type of 'listOfTransformationMatrices' parameter")
-        for i in range(len(listOfTransformationMatrices)):
-            element = listOfTransformationMatrices[i]
-            sample_element = np.zeros((4,4))
-            if not self.__checkTypes([element],[sample_element]):
-                raise RuntimeError("element with index {} is of an unexpected type".format(i))
-            if element.shape != (4,4):
-                raise RuntimeError("element with index {} is of an unexpected shape".format(i))
         self.__listOfTransformationMatrices = listOfTransformationMatrices
 
     def __init__(self,cameraIntrinsicMatrix,listOfTransformationMatrices):
