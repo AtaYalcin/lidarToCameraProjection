@@ -9,7 +9,9 @@ class : ProjectionTool :
         parameter : color_function  : function(numpy.float64 -> [numpy.float64,numpy.float64,numpy.float64]) {optional-default: rainbow(lut = 100)}: a function taking the distance of the point and returning its color
 
     class : CameraDirection : Enum {POSITIVE = 0 , NEGATIVE = 1} : an enum denoting the camera direction
-
+    class : ColorFunctionGenerator: {each function listed below outputs (a function taking the distance of the point and returns its color i.e. numpy.float64 -> [numpy.float64,numpy.float64,numpy.float64])}
+        function rainbow :
+            parameter : lut : int : the largest distance such that the outputted function will continue to be sensitive to increased distance
     function : setCameraIntrinsic :
     parameter : cameraIntrinsicMatrix : 3x4 numpy array : The intrinsic matrix of the Camera
 
@@ -20,7 +22,7 @@ class : ProjectionTool :
     {given the list of transformation matrices [A1 A2 A3 ....... An] and intrinsic Matrix P applies the P(An(An-1(.......A2(A1(x))........)))) i.e. the transformation modeled by the matrix P * An * An-1 * ..... A3 * A2 * A1 }
         parameter : inputDirectory  : string : directory to input the points.
         parameter : outputDirectory : string : directory to output the projected images.
-        parameter : imageshape      : (int, int){optional-default (376, 1241)}
+        parameter : image_shape      : (int, int){optional-default (376, 1241)}
         parameter : remove_plane    : bool{optional-default True}                           : A bool stating whether the projection should remove plane(ground)
         EXPERIMENTAL - parameter : remove_outliers : bool{optional-default True}            : A bool stating whether the projection should remove outliers
         parameter : cameraDirection : CameraDirection : An enum value denoting the direction of the camera

@@ -39,12 +39,12 @@ class ProjectionTool:
         else:
             self.__color_function = color_function
 
-    def applyLidarToCameraProjections(self,inputDirectory,outputDirectory,imageshape=(376, 1241),remove_plane = True,remove_outliers=True,cameraDirection = CameraDirection.POSITIVE):
+    def applyLidarToCameraProjections(self,inputDirectory,outputDirectory,image_shape=(376, 1241),remove_plane = True,remove_outliers=True,cameraDirection = CameraDirection.POSITIVE):
         operand = self.__computeTotalMatrix()
         paths = sorted(glob(os.path.join(inputDirectory, '*.bin')))
 
         for index in range(len(paths)):
-            image = np.zeros((imageshape[0], imageshape[1], 3))
+            image = np.zeros((image_shape[0], image_shape[1], 3))
             inputPath = paths[index]
             scan_data = np.fromfile(inputPath, dtype=np.float32).reshape((-1, 4))
             xyz = scan_data[:, 0:3]
