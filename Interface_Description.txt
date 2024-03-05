@@ -18,8 +18,8 @@ class : ProjectionTool :
     function : applyLidarToCameraProjections :
         parameter : inputDirectory  : string
         parameter : outputDirectory : string
-        parameter : imageshape      : (int, int)
-        parameter : remove_plane    : bool
-        parameter : remove_outliers : bool
-        parameter : color_map       : function
-        parameter : cameraDirection : CameraDirection
+        parameter : imageshape      : (int, int){optional-default (376, 1241)}
+        parameter : remove_plane    : bool{optional-default True}                           : A bool stating whether the projection should remove plane(ground)
+        EXPERIMENTAL - parameter : remove_outliers : bool{optional-default True}            : A bool stating whether the projection should remove outliers
+        parameter : color_map       : function()
+        parameter : cameraDirection : CameraDirection : An enum value denoting the direction of the camera
