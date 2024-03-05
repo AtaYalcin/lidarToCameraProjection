@@ -16,11 +16,16 @@ class : ProjectionTool :
     parameter : cameraIntrinsicMatrix : 3x4 numpy array : The intrinsic matrix of the Camera
 
     function : setlistOfTransformationMatrices :
-        parameter : listOfTransformationMatrices : a list of 4x4 numpy arrays : The list of matrices determining the transformations that shall be applied to each point
+        parameter : listOfTransformationMatrices : a list of 4x4 numpy arrays : The list of matrices determining the transformations that shall be applied to each point.
+    function : setCameraIntrinsic : sets the cameras intrinsic matrix to the given cameraIntrinsicMatrix parameter.
+        parameter : cameraIntrinsicMatrix : 3x4 numpy array :
+    function : setColorFunction : sets the color function to the provided color_function parameter.
+        parameter : color_function : function(numpy.float64 -> [numpy.float64,numpy.float64,numpy.float64])
+
 
     function : applyLidarToCameraProjections :
     {given the list of transformation matrices [A1 A2 A3 ....... An] and intrinsic Matrix P applies the P(An(An-1(.......A2(A1(x))........)))) i.e. the transformation modeled by the matrix P * An * An-1 * ..... A3 * A2 * A1 }
-        parameter : inputDirectory  : string : directory to input the points.
+        parameter : inputDirectory  : string : directory to input the point clouds.
         parameter : outputDirectory : string : directory to output the projected images.
         parameter : image_shape      : (int, int){optional-default (376, 1241)}
         parameter : remove_plane    : bool{optional-default True}                           : A bool stating whether the projection should remove plane(ground)
