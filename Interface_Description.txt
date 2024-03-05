@@ -1,0 +1,15 @@
+THE PROVIDED CODE DOES NOT IMPLEMENT ANY TYPECHECKING FOR ANY ARGUMENT.
+THE PROVIDED CODE DOES NOT IMPLEMENT ANY SHAPE CHECKING FOR THE NUMPY ARRAYS.
+PROPER ARGUMENT SELECTION IS LEFT AS THE RESPONSIBILITY OF THE IMPLEMENTER.
+
+constructor function : __init__ :
+    parameter : cameraIntrinsicMatrix : 3x4 numpy array : The intrinsic matrix of the Camera
+        parameter : listOfTransformationMatrices : a list of 4x4 numpy arrays : The list of matrices determining the transformations that shall be applied to each point
+
+enum
+
+function : setCameraIntrinsic :
+    parameter : cameraIntrinsicMatrix : 3x4 numpy array : The intrinsic matrix of the Camera
+
+function : setlistOfTransformationMatrices :
+    parameter : listOfTransformationMatrices : a list of 4x4 numpy arrays : The list of matrices determining the transformations that shall be applied to each point
