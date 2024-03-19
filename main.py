@@ -9,9 +9,6 @@ from matplotlib import cm
 from matplotlib import image
 
 class ProjectionTool:
-    class CameraDirection(Enum):
-        POSITIVE = 0
-        NEGATIVE = 1
     class ColorFunctionGenerator():
          def rainbow(lut):
              rainbow_r = cm.get_cmap('rainbow_r', lut=lut)
@@ -39,7 +36,7 @@ class ProjectionTool:
         else:
             self.__color_function = color_function
 
-    def applyLidarToCameraProjections(self,inputDirectory,outputDirectory,image_shape=(376, 1241),remove_plane = True,remove_outliers=True,cameraDirection = CameraDirection.POSITIVE):
+    def applyLidarToCameraProjections(self,inputDirectory,outputDirectory,image_shape=(376, 1241),remove_plane = True):
         operand = self.__computeTotalMatrix()
         paths = sorted(glob(os.path.join(inputDirectory, '*.bin')))
 
@@ -71,22 +68,19 @@ class ProjectionTool:
             camera = np.matmul(operand,xyzw)
 
 
-            if cameraDirection == self.CameraDirection.POSITIVE:
-                camera = np.delete(camera, np.where(camera[2, :] < 0)[0], axis=1)
-            else:
-                camera = np.delete(camera, np.where(camera[2, :] > 0)[0], axis=1)
+            camera = np.delete(camera, np.where(camera[2, :] < 0)[0], axis=1)
 
             # get camera coordinates u,v,z
             camera[:2] /= camera[2, :]
 
             # remove outliers (points outside the image frame)
-            if remove_outliers:
-                u, v, z = camera
-                img_h, img_w, _ = image.shape
-                u_out = np.logical_or(u < 0, u > img_w)
-                v_out = np.logical_or(v < 0, v > img_h)
-                outlier = np.logical_or(u_out, v_out)
-                camera = np.delete(camera, np.where(outlier), axis=1)
+
+            u, v, z = camera
+            img_h, img_w, _ = image.shape
+            u_out = np.logical_or(u < 0, u > img_w)
+            v_out = np.logical_or(v < 0, v > img_h)
+            outlier = np.logical_or(u_out, v_out)
+            camera = np.delete(camera, np.where(outlier), axis=1)
 
             uvz = camera
 
